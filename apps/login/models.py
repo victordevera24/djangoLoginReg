@@ -27,11 +27,11 @@ class UserManager(models.Manager):
     def login_validator(self, postData):
         errors = {}
         if len(User.objects.filter(email = postData['email'])) < 1:
-            errors['wrong_email'] = 'Incorrect email' 
+            errors['wrong_email'] = 'Incorrect email or password' 
         else:
             u = User.objects.get(email=postData['email'])
             if bcrypt.checkpw(postData['password'].encode(), u.password.encode()) != True:
-                errors['wrong_password'] = 'Incorrect password'
+                errors['wrong_password'] = 'Incorrect email or password'
         return errors
 
 class User(models.Model):

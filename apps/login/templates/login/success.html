@@ -9,5 +9,8 @@
 <body>
     <h1>Success! Welcome, {{request.session.name}}!</h1>
     <p style='color:limegreen'>Successfuly registered (or logged in)!</p>
+    <form action='/'>
+        <input type='submit' value='Log out'>
+    </form>
 </body>
 </html>
