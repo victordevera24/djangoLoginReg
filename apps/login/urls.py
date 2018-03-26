@@ -4,6 +4,11 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index),
     url(r'process$', views.process),   
-    url(r'success$', views.success), 
+    url(r'dashboard$', views.success), 
     url(r'login$', views.login),
+    url(r'add$', views.add),
+    url(r'addItem$', views.addItem),
+    url(r'item/(?P<id>\d+)$', views.show),
+    url(r'addWish/(?P<id>\d+)$', views.addWish),
+
 ]

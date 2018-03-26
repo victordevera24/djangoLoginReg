@@ -7,10 +7,53 @@
     <title>Login & Red | Success</title>
 </head>
 <body>
-    <h1>Success! Welcome, {{request.session.name}}!</h1>
-    <p style='color:limegreen'>Successfuly registered (or logged in)!</p>
+    <h1>Hello, {{request.session.name}}!</h1>
     <form action='/'>
         <input type='submit' value='Log out'>
     </form>
+
+    <p>Your Wish List:</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Added By</th>
+                <th>Date Added</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+            {% for i in wishlist %}
+            
+                    <tr>
+                        <td><a href='item/{{i.id}}'>{{i.item_name}}</a></td>
+                        <td>{{i.adder.first_name}}</td>
+                        <td>{{i.created_at}}</td>
+                        <td><a href=''></a></td>
+                    </tr>
+            
+            {% endfor %}
+    </table>
+    <p>Other Users' Wish List:</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Added By</th>
+                <th>Date Added</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        {% for i in items %}
+        {% if i.adder.id != request.session.id %}
+            <tr>
+                <td><a href='item/{{i.id}}'>{{i.item_name}}</a></td>
+                <td>{{i.adder.first_name}}</td>
+                <td>{{i.created_at}}</td>
+                <td><a href='/addWish/{{i.id}}'>Add to my Wishlist</a></td>
+            </tr>
+            {%endif%}
+        {% endfor %}
+    </table>
+    <a href='/add'>Add Item</a>
 </body>
 </html>
