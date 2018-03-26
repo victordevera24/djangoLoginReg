@@ -28,7 +28,12 @@
                         <td><a href='item/{{i.id}}'>{{i.item_name}}</a></td>
                         <td>{{i.adder.first_name}}</td>
                         <td>{{i.created_at}}</td>
-                        <td><a href=''></a></td>
+                        {% if i.adder.id == request.session.id %}
+                            <td><a href='/delete/{{i.id}}'>Delete</a></td>
+                        {% endif %}
+                        {% if not i.adder.id == request.session.id %}
+                        <td><a href='/remove/{{i.id}}'>Remove from Wishlist</a></td>
+                        {% endif %}
                     </tr>
             
             {% endfor %}

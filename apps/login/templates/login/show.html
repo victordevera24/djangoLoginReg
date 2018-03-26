@@ -12,8 +12,9 @@
     <h1>{{item.item_name}}</h1>
     <p>Users who added this product/item under their wish list:</p>
     <ul>
-        <li>{{item.adder.first_name}}</li>
-        <li></li>
+        {% for u in user %}
+        <li>{{u.first_name}}</li>
+        {% endfor %}
     </ul>
 
 </body>

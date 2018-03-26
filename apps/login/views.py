@@ -74,7 +74,11 @@ def addItem(request):
 
 
 def show(request, id):
-    return render(request, ('login/show.html'), { 'item' : Item.objects.get(id =id)})
+    context = {
+        'item' : Item.objects.get(id =id),
+        'user' : User.objects.filter(wished_items = id)
+    }
+    return render(request, ('login/show.html'), context)
 
 
 
@@ -85,3 +89,14 @@ def addWish(request, id):
         return redirect(('/dashboard'), { 'items' : Item.objects.all()} )
 
 
+def remove(request, id):
+    this_item = Item.objects.get(id = id)
+    this_user = User.objects.get (id = request.session['id'])
+    this_user.wished_items.remove(this_item)
+    return redirect(('/dashboard'), { 'items' : Item.objects.all()} )
+
+
+def delete(request, id):
+    d = Item.objects.get(id=id)
+    d.delete()
+    return redirect(('/dashboard'), { 'items' : Item.objects.all()} )
