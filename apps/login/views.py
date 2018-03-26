@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages 
 from models import *  
 import bcrypt
+from django.db.models import Q
 
 
 def index(request):
@@ -45,8 +46,8 @@ def success(request):
         return redirect('/')
     else:
         wishlist = Item.objects.filter(wished_users=request.session['id'])
-        items = Item.objects.all()
-        return render(request, ('login/success.html'), {'wishlist' : wishlist}, { 'items' : items} )
+        items = Item.objects.filter(~Q(wished_users=request.session['id']))
+        return render(request, ('login/success.html'), {'wishlist' : wishlist, 'items' : items} )
 
 
 def add(request):
